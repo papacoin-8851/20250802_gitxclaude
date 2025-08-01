@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ぷにまる - みんなのふわふわ友達</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Yu Gothic", YuGothic, "ヒラギノ角ゴ ProN W3", Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: "";
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            animation: float 20s linear infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translate(-50%, -50%); }
+            100% { transform: translate(0%, 0%); }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.2);
+            animation: bounce 2s ease-in-out infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .hero-subtitle {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .punimaru-main {
+            width: 300px;
+            height: 300px;
+            margin: 50px auto;
+            background: #ffb3d9;
+            border-radius: 50%;
+            position: relative;
+            animation: squish 3s ease-in-out infinite;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        
+        @keyframes squish {
+            0%, 100% { transform: scale(1, 1); }
+            25% { transform: scale(1.1, 0.9); }
+            50% { transform: scale(0.9, 1.1); }
+            75% { transform: scale(1.05, 0.95); }
+        }
+        
+        .eye {
+            width: 40px;
+            height: 40px;
+            background: #333;
+            border-radius: 50%;
+            position: absolute;
+            top: 100px;
+        }
+        
+        .eye.left { left: 80px; }
+        .eye.right { right: 80px; }
+        
+        .eye::before {
+            content: "";
+            width: 15px;
+            height: 15px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 5px;
+            left: 5px;
+        }
+        
+        .mouth {
+            width: 80px;
+            height: 40px;
+            border: 5px solid #333;
+            border-top: none;
+            border-radius: 0 0 40px 40px;
+            position: absolute;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section {
+            padding: 80px 0;
+        }
+        
+        .section:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        h2 {
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 50px;
+            color: #c44569;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+        
+        .feature {
+            text-align: center;
+            padding: 30px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
+            background: #ffb3d9;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3em;
+        }
+        
+        .feature h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #c44569;
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 50px;
+        }
+        
+        .gallery-item {
+            aspect-ratio: 1;
+            background: linear-gradient(45deg, #ffb3d9, #ffc9e2);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4em;
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover {
+            transform: rotate(5deg) scale(1.1);
+        }
+        
+        .cta {
+            background: linear-gradient(135deg, #c44569 0%, #ff6b9d 100%);
+            color: white;
+            text-align: center;
+            padding: 80px 0;
+        }
+        
+        .cta h2 {
+            color: white;
+            margin-bottom: 30px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 20px 50px;
+            background: white;
+            color: #c44569;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .cta-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+        
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5em;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2em;
+            }
+            
+            .punimaru-main {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .eye {
+                width: 30px;
+                height: 30px;
+                top: 70px;
+            }
+            
+            .eye.left { left: 50px; }
+            .eye.right { right: 50px; }
+            
+            .mouth {
+                width: 60px;
+                height: 30px;
+                bottom: 70px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="container">
+            <h1>ぷにまる</h1>
+            <p class="hero-subtitle">みんなのふわふわ友達</p>
+            <div class="punimaru-main">
+                <div class="eye left"></div>
+                <div class="eye right"></div>
+                <div class="mouth"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2>ぷにまるってなあに？</h2>
+            <p style="text-align: center; font-size: 1.2em; max-width: 800px; margin: 0 auto;">
+                ぷにまるは、ふわふわもちもちの不思議な生き物です。<br>
+                いつもにこにこしていて、みんなを幸せな気持ちにしてくれます。<br>
+                触るとぷにぷにして、とっても気持ちいいんです！
+            </p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2>ぷにまるの特徴</h2>
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">🌸</div>
+                    <h3>ふわふわボディ</h3>
+                    <p>マシュマロのようなふわふわの体は、触るだけで癒されます。ストレス解消にぴったり！</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">✨</div>
+                    <h3>色が変わる！</h3>
+                    <p>気分によって体の色が変化します。ピンク、紫、水色など、カラフルに変身！</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🎵</div>
+                    <h3>歌が大好き</h3>
+                    <p>「ぷにぷに〜♪」という可愛い歌声で、みんなを元気にしてくれます。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2>ぷにまるギャラリー</h2>
+            <div class="gallery">
+                <div class="gallery-item">🌈</div>
+                <div class="gallery-item">💖</div>
+                <div class="gallery-item">🌟</div>
+                <div class="gallery-item">🎈</div>
+                <div class="gallery-item">🌺</div>
+                <div class="gallery-item">🦄</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <h2>ぷにまると友達になろう！</h2>
+            <p style="font-size: 1.2em; margin-bottom: 30px;">
+                今すぐぷにまるワールドに遊びに来てね！
+            </p>
+            <a href="#" class="cta-button">ぷにまるに会いに行く</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 ぷにまるワールド. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
